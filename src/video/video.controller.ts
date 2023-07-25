@@ -21,8 +21,8 @@ export class VideoController {
       console.log('filekey', fileKey, video);
       console.log('fileBuffer', fileBuffer);
       const upload = await this.s3Service.uploadVideo(video.buffer, Date.now() + '_' + video.originalname, video.mimetype,);
-      // const saveVideoKey = await  this.vService.saveVideoKey(video.name,upload.key)
-      const saveImageKey = await  this.vService.saveImageKey(video.name,upload.key)
+      const saveVideoKey = await  this.vService.saveVideoKey(video.name,upload.key)
+      // const saveImageKey = await  this.vService.saveImageKey(video.name,upload.key)
       return res.status(HttpStatus.OK).json({ message: 'video uploaded', upload: upload.key, status: true });
     } catch (err) {
       console.log(err)
@@ -39,7 +39,7 @@ export class VideoController {
     console.log('getdatagetdata', getdata);
     const videokey = getdata.videoKey;
     const getVideo = await this.s3Service.getAttachmentImage(videokey);
-    console.log('getV', getVideo);
+    // console.log('getV', getVideo);
     return res.status(HttpStatus.OK).json({ message: 'get data', data: getVideo, status: true });
   }
 
@@ -60,6 +60,17 @@ export class VideoController {
   async getAllKeys(@Res() res: Response){
     try{
       const getAllKeys = await this.vService.getAllImagesKeys();
+      return res.status(HttpStatus.OK).json({ message: 'getAllKeys', data: getAllKeys, status: true, });
+
+    }catch (err){
+      console.log('err',err);
+    }
+  }
+
+  @Get('getAllVideoKeys')
+  async getAllVideoKeys(@Res() res: Response){
+    try{
+      const getAllKeys = await this.vService.getAllVideoKeys();
       return res.status(HttpStatus.OK).json({ message: 'getAllKeys', data: getAllKeys, status: true, });
 
     }catch (err){

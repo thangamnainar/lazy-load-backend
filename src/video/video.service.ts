@@ -33,7 +33,7 @@ export class VideoService {
     return await this.ImagesRepository.findOne({select:['id','name','imageKey'],where:{id:id}})
   }
 
-  async getAllKeys(){
+  async getAllVideoKeys(){
     return await this.VideoRepository.find({select:['id','name','videoKey']})
   }  
 

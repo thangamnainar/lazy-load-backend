@@ -8,6 +8,7 @@ export class S3serviceService {
 
     constructor() {
         this.s3 = new S3();
+        this.getPreSignedUrl('1690268840072_video (1080p).mp4')
     }
 
     async uploadVideo(dataBuffer: Buffer, fileName: string, fileMimeType: string): Promise<any> {
@@ -44,6 +45,27 @@ export class S3serviceService {
                 }
             });
         });
+    }
+
+    getPreSignedUrl(key: string) {
+        console.log('inside of getPreSignedUrl');
+        
+        return new Promise((resolve, reject) => {
+            let getParams = {
+                Bucket: process.env.AWS_PUBLIC_BUCKET_NAME,
+                Key: key,
+                Expires: 3600
+            };
+            const s3 = new S3();
+
+            s3.getSignedUrl("getObject",getParams,(err,data) => {
+                if(err) {
+                    console.log(err);
+                    reject(err);
+                }
+                console.log('data',data);
+            })
+        })
     }
 
     
