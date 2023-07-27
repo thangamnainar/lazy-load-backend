@@ -43,30 +43,6 @@ export class VideoController {
     return res.status(HttpStatus.OK).json({ message: 'get data', data: getVideo, status: true });
   }
 
-
-  @Get('getImage/:id')
-  async getImage(@Res() res: Response,@Req() req:Request ,@Param('id') id:string) {
-    console.log('id',id);
-    const getdata = await this.vService.getImage(id);
-    console.log('getdatagetdata', getdata);
-    const imagekey = getdata.imageKey;
-    const getVideo = await this.s3Service.getAttachmentImage(imagekey);
-    // console.log('getV', getVideo);
-    return res.status(HttpStatus.OK).json({ message: 'get data', data: getVideo, status: true });
-  }
-
-
-  @Get('getAllKeys')
-  async getAllKeys(@Res() res: Response){
-    try{
-      const getAllKeys = await this.vService.getAllImagesKeys();
-      return res.status(HttpStatus.OK).json({ message: 'getAllKeys', data: getAllKeys, status: true, });
-
-    }catch (err){
-      console.log('err',err);
-    }
-  }
-
   @Get('getAllVideoKeys')
   async getAllVideoKeys(@Res() res: Response){
     try{

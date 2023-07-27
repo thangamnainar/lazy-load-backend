@@ -5,6 +5,7 @@ import { VideoModule } from './video/video.module';
 import { S3serviceService } from './s3service/s3service.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       // synchronize: true,   
       autoLoadEntities: true,
     }),
-    VideoModule
+    VideoModule,
+    ImageModule
   ],
   controllers: [AppController],
   providers: [AppService, S3serviceService],

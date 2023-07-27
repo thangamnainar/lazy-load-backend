@@ -21,25 +21,19 @@ export class VideoService {
     return await this.VideoRepository.save({name:name, videoKey:key})
   }
 
-  async saveImageKey(name:string,key:string) {
-    return await this.ImagesRepository.save({name:name, imageKey:key})
-  }
+
 
   async getVideo(id:any) {
     return await this.VideoRepository.findOne({select:['id','name','videoKey'],where:{id:id}})
   }
 
-  async getImage(id:any) {
-    return await this.ImagesRepository.findOne({select:['id','name','imageKey'],where:{id:id}})
-  }
+ 
 
   async getAllVideoKeys(){
     return await this.VideoRepository.find({select:['id','name','videoKey']})
   }  
 
-  async getAllImagesKeys(){
-    return await this.ImagesRepository.find({select:['id','name','imageKey']})
-  } 
+
 
   findOne(id: number) {
     return `This action returns a #${id} video`;
